@@ -1,0 +1,272 @@
+<section class="users-edit">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <!-- Nav-tabs -->
+              <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs justify-content-left">
+                <li [ngbNavItem]="1">
+                  <a ngbNavLink class="nav-link d-flex align-items-center">
+                    <i class="ft-user mr-1"></i>
+                    <span class="d-none d-sm-block">Datos Generales</span>
+                  </a>
+                  <ng-template ngbNavContent>
+                    <!-- Account content starts -->
+                    <div class="mt-2" id="account">
+                      <!-- Media object starts -->
+                      <div class="media"> 
+                        <img src="{{urlIMG}}" alt="user edit avatar"
+                          class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
+                        <div class="media-body">
+                          <h4>Default</h4>
+                        </div>
+                      </div>
+                      <!-- Media object ends -->
+  
+                      <!-- Account form starts -->
+                      <form  [formGroup]="formGeneral" novalidate>
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <div class="controls">                                    
+                                        <label for="nombre_corto">NOMBRE CORTO</label>
+                                        <input type="text" formControlName="nombre_corto" [readonly]="flagTab1"
+                                            class="form-control" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <div class="controls">
+                                        <label >NOMBRE COMPLETO</label>
+                                        <input type="text" formControlName="nombreCompleto" [readonly]="flagTab1"
+                                            class="form-control" placeholder="Name" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <div class="controls">
+                                        <label for="users-edit-role">STATUS</label>
+                                        <select id="users-edit-role" [disabled]="flagTab1" class="form-control" formControlName="status" >
+                                            <option value="">Select Status</option>
+                                            <option value="1">Active</option>
+                                            <option value="2">Inactive</option>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">  
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <div class="controls">
+                                        <label for="users-edit-company">FECHA DE INCORPORACIÓN</label>
+                                        <input type="date" formControlName="fechaIncorporacion" [readonly]="flagTab1"
+                                            ngbDatepicker  #datePicker="ngbDatepicker"
+                                         class="form-control" placeholder="fecha">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                <div class="controls">
+                                    <label for="users-edit-company">URL DEL SISTEMA</label>
+                                    <input type="text" formControlName="urlSystema" [readonly]="flagTab1"
+                                        class="form-control" placeholder="Company Name">
+                                </div>
+                                </div>
+                            </div>                          
+  
+                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
+                                <button type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2" (click)="editar()">Editar</button>
+                                <a type="reset" class="btn btn-secondary" [routerLink]="['/corporativos']" >Regresar</a>
+                            </div>
+
+                        </div>
+                      </form>
+                      <ngx-spinner></ngx-spinner>
+
+                      <!-- Account form ends -->
+                    </div>
+                    <!-- Account content ends -->
+                  </ng-template>
+                </li>
+                <li [ngbNavItem]="2">
+                  <a ngbNavLink class="nav-link d-flex align-items-center">
+                    <i class="ft-info mr-1"></i>
+                    <span class="d-none d-sm-block">Contactos</span>
+                  </a>
+                  <ng-template ngbNavContent>
+                    <div class="media"> 
+                        <img src="{{urlIMG}}" alt="user edit avatar"
+                          class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
+                        <div class="media-body">
+                          <h4>Contactos</h4>
+                        </div>
+                      </div>
+                    <div class="col-12 users-module">
+                        <div class="table-responsive">
+                            
+                            <ngx-datatable class="bootstrap core-bootstrap" 
+                                [columnMode]="'force'" [headerHeight]="50"
+                                [footerHeight]="50" rowHeight="auto"  [columns]="columns"
+                                [rows]="tableContacts">
+
+                                <ngx-datatable-column name="nombre" prop="S_Nombre" [width]="150">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span>NOMBRE</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="puesto" prop="S_Puesto" [width]="150">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span>PUESTO</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="telefonoFijo" prop="N_TelefonoFijo" [width]="150">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span>TELEFONO</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="telefonoMovil" prop="N_TelefonoMovil" [width]="150">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span>MOVIL</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="correo" prop="S_Email" [width]="150">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span>EMAIL</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="observaciones" prop="S_Comentarios" [width]="150">
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span>OBSERVACIONES</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Actiones" prop="Actions" >
+                                    <ng-template let-column="column" ngx-datatable-header-template>
+                                        <span>ACCIONES</span>
+                                    </ng-template>
+                                    <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                                        <span>
+                                            
+                                            <button class="btn btn-sm btn-primary m-2"  title="Editar"
+                                                (click)="editarContacto(row)">
+                                                <span class="fa fa-edit"></span>
+                                            </button>                                        
+                                            <button class="btn btn-sm btn-danger"  
+                                            (click)="deleteContact(row)" title="check">
+                                                <span class="fa fa-trash"></span> 
+                                            </button>
+                                        </span>
+                                      </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                    <form  [formGroup]="formContact" novalidate>
+                        <div class="row">
+                            <div class="col-12 col-md-3">
+                                <div class="form-group">
+                                    <div class="controls">
+                                        <label >NOMBRE CORTO</label>
+                                        <input type="text" formControlName="S_Nombre" 
+                                            class="form-control">
+                                        <div class="alert  alert-danger" 
+                                            *ngIf="formContact.get('S_Nombre').hasError('required') && formContact.get('S_Nombre').touched">  
+                                                nombre corto es obligatorio
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <div class="form-group">
+                                    <div class="controls">
+                                        <label >PUESTO</label>
+                                        <input type="text" formControlName="S_Puesto" 
+                                            class="form-control">
+                                        <div class="alert  alert-danger" 
+                                            *ngIf="formContact.get('S_Puesto').hasError('required') && formContact.get('S_Puesto').touched">  
+                                                Puesto es obligatorio
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <div class="controls">
+                                        <label for="">COMENTARIOS</label>
+                                        <input type="text" formControlName="S_Comentarios" 
+                                            class="form-control" placeholder="Comentarios" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">  
+                            <div class="col-12 col-md-3">
+                                <div class="form-group">
+                                    <div class="controls">
+                                        <label >TELEFONO FIJO</label>
+                                        <input type="text" formControlName="N_TelefonoFijo" 
+                                         class="form-control" placeholder="FIJO">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <div class="form-group">
+                                    <div class="controls">
+                                        <label >TELEFONO MOVIL</label>
+                                        <input type="text" formControlName="N_TelefonoMovil" 
+                                         class="form-control" placeholder="MOVIL">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                <div class="controls">
+                                    <label >EMAIL</label>
+                                    <input type="text" formControlName="S_Email" 
+                                        class="form-control" placeholder="EMAIL">
+                                    <div class="alert  alert-danger" 
+                                            *ngIf="formContact.get('S_Email').hasError('required') && formContact.get('S_Email').touched">  
+                                                Email es obligatorio
+                                    </div>
+                                </div>
+                                </div>
+                            </div>                          
+  
+                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
+                                <button *ngIf="!flagNewOrEdit" [disabled]='formContact.invalid'
+                                    class="btn btn-primary mb-2 mb-sm-0 mr-sm-2" 
+                                    (click)="saveNewContact()">Agregar Contacto</button>
+                            <button *ngIf="flagNewOrEdit" [disabled]='formContact.invalid'
+                                    class="btn btn-primary mb-2 mb-sm-0 mr-sm-2" 
+                                    (click)="saveEditContact()">Editar Contacto</button>
+                                
+                            </div>
+
+                        </div>
+                      </form>
+                    <!-- Information content starts -->
+                    <div class="mt-2" id="information">
+                      <!-- Information form starts -->
+                   
+                      <!-- Information form ends -->
+                    </div>
+                    <!-- Information content ends -->
+                  </ng-template>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div [ngbNavOutlet]="nav"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
